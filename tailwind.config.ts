@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss"; // 👈 这里改了：从 "tailwindcss" 引入
+import type { Config } from "tailwindcss"; // 👈 必须是 tailwindcss，不能是 next
 
 const config: Config = {
   content: [
