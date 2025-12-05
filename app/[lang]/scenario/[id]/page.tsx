@@ -91,15 +91,7 @@ export default async function ScenarioPage({ params }: PageProps) {
                   : 'bg-white border-zinc-100 text-zinc-900 hover:border-zinc-200 hover:shadow-lg hover:shadow-zinc-100/50'}
               `}
             >
-              {/* 排名标签 */}
-              <div className={`absolute top-8 right-8 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wide border z-20
-                ${isS 
-                  ? 'bg-white/10 border-white/10 text-yellow-400 backdrop-blur-md' 
-                  : 'bg-zinc-100 border-zinc-200 text-zinc-500'}
-              `}>
-                {isS ? <Trophy size={13} fill="currentColor" /> : <Medal size={13} />}
-                {lang === 'en' ? `No.${ranking} Recommended` : `No.${ranking} 推荐`}
-              </div>
+              
 
               {/* 第一行：Header */}
               <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8">
