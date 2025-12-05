@@ -1,19 +1,5 @@
 import { Scenario } from './data-zh';
 
-
-export interface Tool {
-  id: string;
-  name: string;
-  rank: Rank;
-  tagline: string;
-  pros: string[];
-  cons: string[];
-  priceModel: 'Free' | 'Freemium' | 'Paid';
-  link: string;
-  logo: string;
-  lastCheck: string; // 👈 新增：格式 '2025-12-01'
-}
-
 export const scenariosEn: Scenario[] = [
   // --- General ---
   {
