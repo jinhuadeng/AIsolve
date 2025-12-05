@@ -1,0 +1,110 @@
+export type Locale = 'zh' | 'en';
+
+export const dictionary = {
+  zh: {
+    nav: {
+      tag: 'v2.5 Pro',
+      switchBtn: 'EN',
+      target: 'en' as Locale
+    },
+    hero: {
+      brand: 'WenX',
+      title_prefix: 'WenX · ',
+      title_highlight: '别搜了，直接用',
+      subtitle_1: '你的',
+      subtitle_strong: 'AI优选工具',
+      subtitle_2: '针对高频场景，只推荐经过验证的 Top 神器',
+      subtitle_3: '拒绝选择困难，直达最优解。',
+      search_placeholder: 'WenX 一下 (如: 论文, 视频)...',
+      hot_title: '快速直达',
+      persona_title: '按你的需求浏览',
+      empty_state: '暂无相关工具，请尝试其他关键词。'
+    },
+    card: {
+      top_pick: '直达',
+      verified: '已验证',
+      unverified: '需复核',
+    },
+    // 👇 新增 Newsletter 文案
+    newsletter: {
+      title: 'AI 变化太快了？',
+      desc: '每周五，花 3 分钟看懂本周最值得用的 1 个新工具。',
+      placeholder: '输入你的邮箱...',
+      button: '订阅周刊',
+      success: '🎉 订阅成功！下周五见。',
+      sub: '已有 2,000+ 探索者订阅'
+    },
+    personas: {
+      All: '全部',
+      Student: '🎓 学生党',
+      Worker: '💼 职场白领',
+      Developer: '💻 开发者',
+      Entrepreneur: '🚀 创投人',
+      Creator: '🎨 创作者'
+    },
+    hot: [
+      { label: '做PPT', id: 'ppt' },
+      { label: '写代码', id: 'code' },
+      { label: 'AI绘画', id: 'draw' },   // 新增
+      { label: '读财报', id: 'long-doc' },
+      { label: '做视频', id: 'video' },
+      { label: '搞Excel', id: 'excel' }, // 新增
+      { label: '练口语', id: 'speak' },
+      { label: '写文案', id: 'chat' },   // 新增
+      { label: '精准翻译', id: 'translate' }, // 新增
+    ]
+  },
+  en: {
+    nav: {
+      tag: 'v2.5 Global',
+      switchBtn: '中',
+      target: 'zh' as Locale
+    },
+    hero: {
+      brand: 'WenX',
+      title_prefix: 'WenX · ',
+      title_highlight: 'Stop Searching, Start Solving',
+      subtitle_1: 'Your',
+      subtitle_strong: 'AI Trust Proxy',
+      subtitle_2: '. Curated Top tools for your needs.',
+      subtitle_3: 'Verified. Essential. Ready to use.',
+      search_placeholder: 'My Need  (Ask WenX)...',
+      hot_title: 'Quick Start',
+      persona_title: 'Browse by role',
+      empty_state: 'No tools found. Try a different keyword.'
+    },
+    card: {
+      top_pick: 'Top Pick',
+      verified: 'Verified',
+      unverified: 'Unverified',
+    },
+    // 👇 Core Update: Newsletter
+    newsletter: {
+      title: 'AI moving too fast?',
+      desc: 'Every Friday, discover the #1 tool worth using in 3 mins.',
+      placeholder: 'Your email address...',
+      button: 'Subscribe',
+      success: '🎉 Subscribed! See you Friday.',
+      sub: 'Join 2,000+ explorers'
+    },
+    personas: {
+      All: 'All',
+      Student: '🎓 Student',
+      Worker: '💼 Professional',
+      Developer: '💻 Developer',
+      Entrepreneur: '🚀 Founder/VC',
+      Creator: '🎨 Creator'
+    },
+    hot: [
+      { label: 'Slides', id: 'ppt' },
+      { label: 'Coding', id: 'code' },
+      { label: 'Drawing', id: 'draw' },
+      { label: 'ChatPDF', id: 'long-doc' },
+      { label: 'Video', id: 'video' },
+      { label: 'Excel', id: 'excel' },
+      { label: 'Speaking', id: 'speak' },
+      { label: 'Writing', id: 'chat' },
+      { label: 'Translate', id: 'translate' },
+    ]
+  }
+};
