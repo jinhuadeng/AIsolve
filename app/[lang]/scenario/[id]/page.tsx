@@ -1,7 +1,7 @@
 import { scenarios as scenariosZh } from '@/lib/data-zh';
 import { scenariosEn } from '@/lib/data-en';
 import Link from 'next/link';
-import { ChevronLeft, ArrowUpRight, Star, Check, X, Trophy, Medal, ShieldCheck, AlertTriangle } from 'lucide-react';
+import { ChevronLeft, ArrowUpRight, Star, Check, X, Trophy, Medal, ShieldCheck, AlertTriangle, Quote, Sparkles } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { ToolIcon } from '@/components/ToolIcon';
 import { ScenarioIcon } from '@/components/ScenarioIcon';
@@ -78,7 +78,6 @@ export default async function ScenarioPage({ params }: PageProps) {
         {sortedTools.map((tool, index) => {
           const isS = tool.rank === 'S';
           const ranking = index + 1;
-          
           const verification = checkVerification(tool.lastCheck);
           const isVerified = verification.status === 'valid';
 
@@ -87,14 +86,22 @@ export default async function ScenarioPage({ params }: PageProps) {
               key={tool.id} 
               className={`relative rounded-[2.5rem] p-8 md:p-10 transition-all duration-300 border overflow-hidden
                 ${isS 
-                  ? 'bg-[#0A0A0A] border-zinc-800 text-white shadow-2xl shadow-black/20 z-10 scale-[1.02]' 
+                  ? 'bg-[#0A0A0A] border-zinc-800 text-white shadow-2xl shadow-black/20 z-10' 
                   : 'bg-white border-zinc-100 text-zinc-900 hover:border-zinc-200 hover:shadow-lg hover:shadow-zinc-100/50'}
               `}
             >
-              
+              {/* 排名标签 */}
+              <div className={`absolute top-8 right-8 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wide border z-20
+                ${isS 
+                  ? 'bg-white/10 border-white/10 text-yellow-400 backdrop-blur-md' 
+                  : 'bg-zinc-100 border-zinc-200 text-zinc-500'}
+              `}>
+                {isS ? <Trophy size={13} fill="currentColor" /> : <Medal size={13} />}
+                {lang === 'en' ? `No.${ranking} Recommended` : `No.${ranking} 推荐`}
+              </div>
 
-              {/* 第一行：Header */}
-              <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8">
+              {/* --- 1. Header: Logo, Title, Badges --- */}
+              <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8 relative z-10">
                 <div className="flex items-start gap-5">
                   <div className="shrink-0 relative">
                     <ToolIcon 
@@ -109,61 +116,90 @@ export default async function ScenarioPage({ params }: PageProps) {
                   </div>
                   
                   <div>
-                    <div className="flex items-center gap-3 mb-1">
+                    <div className="flex items-center gap-3 mb-2">
                       <h3 className="text-2xl md:text-3xl font-bold tracking-tight">{tool.name}</h3>
-                      <div className={`md:hidden inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold border
-                        ${isS ? 'bg-white/10 border-white/10 text-yellow-400' : 'bg-zinc-100 border-zinc-200 text-zinc-500'}
-                      `}>
-                        {isS ? <Trophy size={10} /> : <Medal size={10} />} No.{ranking}
-                      </div>
                     </div>
+                    {/* 🔥 荣誉标签 Badges */}
+                    {tool.badges && tool.badges.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mb-2">
+                        {tool.badges.map((badge, i) => (
+                          <span key={i} className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider
+                            ${isS 
+                              ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30' 
+                              : 'bg-indigo-50 text-indigo-600 border border-indigo-100'}
+                          `}>
+                            <Sparkles size={10} />
+                            {badge}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                     <p className={`text-base font-medium ${isS ? 'text-zinc-400' : 'text-zinc-500'}`}>
                       {tool.tagline}
                     </p>
                   </div>
                 </div>
+              </div>
 
-                <div className={`hidden md:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wide border self-start
-                  ${isS ? 'bg-white/10 border-white/10 text-yellow-400' : 'bg-zinc-100 border-zinc-200 text-zinc-500'}
+              {/* --- 2. WenX 锐评 (The Verdict) --- */}
+              {/* 只有 S 级或有锐评内容的才显示 */}
+              {tool.verdict && (
+                <div className={`mb-8 p-5 rounded-2xl border relative
+                   ${isS ? 'bg-white/5 border-white/10' : 'bg-zinc-50 border-zinc-100'}
                 `}>
-                  {isS ? <Trophy size={13} fill="currentColor" /> : <Medal size={13} />}
-                  {lang === 'en' ? `No.${ranking} Recommended` : `No.${ranking} 推荐`}
+                  <div className={`absolute -top-3 left-6 px-2 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5
+                     ${isS ? 'bg-[#0A0A0A] text-yellow-400' : 'bg-white text-indigo-600'}
+                  `}>
+                    <Quote size={12} className="fill-current" />
+                    {dict.card.verdict_title}
+                  </div>
+                  <p className={`text-sm md:text-base leading-relaxed italic
+                     ${isS ? 'text-zinc-300' : 'text-zinc-700'}
+                  `}>
+                    “{tool.verdict}”
+                  </p>
+                </div>
+              )}
+
+              {/* --- 3. 优缺点对比 (高对比度版) --- */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 relative z-10">
+                {/* 优点：绿色背景 */}
+                <div className={`p-5 rounded-2xl border
+                   ${isS ? 'bg-emerald-900/10 border-emerald-500/20' : 'bg-emerald-50 border-emerald-100'}
+                `}>
+                   <div className={`text-[10px] font-bold uppercase tracking-widest mb-3 flex items-center gap-1.5 ${isS ? 'text-emerald-400' : 'text-emerald-700'}`}>
+                      <Check size={14} strokeWidth={3} /> {dict.card.pros}
+                   </div>
+                   <ul className="space-y-2">
+                     {tool.pros.map((p, i) => (
+                        <li key={i} className={`text-sm ${isS ? 'text-emerald-100/80' : 'text-emerald-900/80'}`}>
+                          {p}
+                        </li>
+                     ))}
+                   </ul>
+                </div>
+
+                {/* 缺点：红色背景 */}
+                <div className={`p-5 rounded-2xl border
+                   ${isS ? 'bg-rose-900/10 border-rose-500/20' : 'bg-rose-50 border-rose-100'}
+                `}>
+                   <div className={`text-[10px] font-bold uppercase tracking-widest mb-3 flex items-center gap-1.5 ${isS ? 'text-rose-400' : 'text-rose-700'}`}>
+                      <X size={14} strokeWidth={3} /> {dict.card.cons}
+                   </div>
+                   <ul className="space-y-2">
+                     {tool.cons.map((c, i) => (
+                        <li key={i} className={`text-sm ${isS ? 'text-rose-100/80' : 'text-rose-900/80'}`}>
+                          {c}
+                        </li>
+                     ))}
+                   </ul>
                 </div>
               </div>
 
-              {/* 第二行：优缺点 */}
-              <div className={`grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 p-5 rounded-2xl border mb-8
-                 ${isS ? 'bg-white/5 border-white/5' : 'bg-zinc-50 border-zinc-100'}
-              `}>
-                <div className="flex flex-col gap-2">
-                   <div className={`text-[10px] font-bold uppercase tracking-widest mb-1 ${isS ? 'text-zinc-500' : 'text-zinc-400'}`}>
-                      {lang === 'en' ? 'Pros' : '优点'}
-                   </div>
-                   {tool.pros.map((p, i) => (
-                      <div key={i} className={`flex gap-2 text-sm ${isS ? 'text-zinc-300' : 'text-zinc-700'}`}>
-                        <Check size={16} className={`shrink-0 mt-0.5 ${isS ? 'text-emerald-400' : 'text-emerald-500'}`} />
-                        <span>{p}</span>
-                      </div>
-                   ))}
-                </div>
-                <div className="flex flex-col gap-2">
-                   <div className={`text-[10px] font-bold uppercase tracking-widest mb-1 ${isS ? 'text-zinc-500' : 'text-zinc-400'}`}>
-                      {lang === 'en' ? 'Cons' : '注意'}
-                   </div>
-                   {tool.cons.map((c, i) => (
-                      <div key={i} className={`flex gap-2 text-sm ${isS ? 'text-zinc-400' : 'text-zinc-500'}`}>
-                        <X size={16} className={`shrink-0 mt-0.5 ${isS ? 'text-rose-400' : 'text-rose-500'}`} />
-                        <span>{c}</span>
-                      </div>
-                   ))}
-                </div>
-              </div>
-
-              {/* 第三行：截图 + 底部操作栏 */}
+              {/* --- 4. 截图与操作 --- */}
               <div className={`relative w-full overflow-hidden rounded-xl border shadow-md group
                  ${isS ? 'border-white/10 bg-zinc-800' : 'border-zinc-200 bg-zinc-100'}
               `}>
-                 {/* 浏览器顶栏 */}
                  <div className={`h-8 flex items-center px-4 gap-1.5 border-b
                     ${isS ? 'bg-white/5 border-white/5' : 'bg-white/60 border-zinc-200/50'}
                  `}>
@@ -177,17 +213,11 @@ export default async function ScenarioPage({ params }: PageProps) {
                     </div>
                  </div>
 
-                 {/* 图片区域 */}
                  <div className="relative w-full h-56 md:h-72"> 
                     <WebsiteCover url={tool.link} alt={tool.name} />
-                    
-                    {/* 底部渐变遮罩 */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-                    {/* 🔥 底部 Flex 容器：左侧标签，右侧按钮 */}
                     <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col-reverse md:flex-row items-center md:justify-between gap-4 z-30">
-                      
-                      {/* 左侧：验证标签 */}
                       <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-medium backdrop-blur-md border shadow-sm
                         ${isVerified 
                           ? 'bg-emerald-500/20 text-emerald-100 border-emerald-500/30' 
@@ -195,12 +225,11 @@ export default async function ScenarioPage({ params }: PageProps) {
                       `}>
                         {isVerified ? <ShieldCheck size={12} /> : <AlertTriangle size={12} />}
                         {isVerified 
-                          ? `${dict.card.verified}: ${tool.lastCheck.slice(0,7)}` 
+                          ? `${dict.card.verified}: ${tool.lastCheck?.slice(0,7) || 'Recently'}` 
                           : dict.card.unverified
                         }
                       </div>
 
-                      {/* 右侧：访问按钮 */}
                       <a 
                         href={tool.link} 
                         target="_blank"

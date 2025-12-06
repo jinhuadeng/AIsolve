@@ -14,7 +14,7 @@ export const dictionary = {
       subtitle_1: '我们',
       subtitle_strong: '测试了1000+款AI产品',
       subtitle_2: '只为你保留了这些常用场景',
-      subtitle_3: '推荐经过验证的Top3神器',
+      subtitle_3: '推荐经过验证的Top神器',
       search_placeholder: 'WenX 一下 (如: 论文, 视频)...',
       hot_title: '直接用不踩雷',
       persona_title: '找到你所需的需求场景',
@@ -24,6 +24,9 @@ export const dictionary = {
       top_pick: '直达',
       verified: '已验证',
       unverified: '需复核',
+      verdict_title: 'WenX 锐评', // 👈 新增
+      pros: '值得入手', // 👈 改得更有煽动性
+      cons: '劝退点',   // 👈 改得更直接
     },
     // 👇 新增 Newsletter 文案
     newsletter: {
@@ -77,6 +80,9 @@ export const dictionary = {
       top_pick: 'Top Pick',
       verified: 'Verified',
       unverified: 'Unverified',
+      verdict_title: 'Our Verdict',
+      pros: 'The Good',
+      cons: 'The Bad',
     },
     // 👇 Core Update: Newsletter
     newsletter: {
