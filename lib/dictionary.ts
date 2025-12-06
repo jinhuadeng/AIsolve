@@ -9,15 +9,15 @@ export const dictionary = {
     },
     hero: {
       brand: 'WenX',
-      title_prefix: '直达 ',
-      title_highlight: '最好的AI',
-      subtitle_1: '你的',
-      subtitle_strong: 'AI优选工具',
-      subtitle_2: '只推荐经过验证的Top3神器',
-      subtitle_3: '拒绝选择困难，直达最优解。',
+      title_prefix: '别再浪费时间',
+      title_highlight: '试错 AI 工具了',
+      subtitle_1: '我们测试了1000+款AI产品',
+      subtitle_strong: '只为你保留了这些场景的Top冠军',
+      subtitle_2: '治好你的选择困难症',
+      subtitle_3: '只推荐经过验证的Top3神器',
       search_placeholder: 'WenX 一下 (如: 论文, 视频)...',
-      hot_title: '快速直达',
-      persona_title: '按你的需求浏览',
+      hot_title: '直接用不踩雷',
+      persona_title: '找到你所需的需求场景',
       empty_state: '暂无相关工具，请尝试其他关键词。'
     },
     card: {
