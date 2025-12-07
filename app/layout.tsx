@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "WenX - AI推荐官 (Your AI Solver)",
-  description: "WenX.ai - 帮你试过错了，再也不会踩雷。",
+  description: "WenX.ai - 别再AI工具挑花眼，帮你推荐最好用的AI。",
   manifest: "/manifest.json", // 👈 关键：关联 manifest
   appleWebApp: {
     capable: true,
